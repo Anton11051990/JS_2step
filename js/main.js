@@ -18,7 +18,7 @@ const renderPage = (list) => {
     renderProduct(item.title, item.price)
   );
   console.log(productsList);
-  document.querySelector(".products").innerHTML = productsList;
+  document.querySelector(".products").innerHTML = productsList.join("");
 };
 
 renderPage(products);
