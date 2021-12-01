@@ -8,8 +8,8 @@ const products = [
 //Добавить в выводе изображение
 const renderProduct = (title, price) => {
   return `<div class="product-item">
-                <h3>${title}</h3>
-                <p>${price}</p>
+                <h3 class="title">${title}</h3>
+                <p class="price">${price}</p>
                 <button class="buy-btn">Купить</button>
             </div>`;
 };
