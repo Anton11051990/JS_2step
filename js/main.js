@@ -8,10 +8,10 @@ class ProductList {
 
   _fetchProducts() {
     this.goods = [
-      { id: 1, title: "Notebook", price: 2000, image: "image" },
-      { id: 2, title: "Mouse", price: 20, image: "image" },
-      { id: 3, title: "Keyboard", price: 20, image: "image" },
-      { id: 4, title: "Gamepad", price: 50, image: "image" },
+      { id: 1, title: "Notebook", price: 2000, image: "imag.jpg" },
+      { id: 2, title: "Mouse", price: 20, image: "imag.jpg" },
+      { id: 3, title: "Keyboard", price: 20, image: "imag.jpg" },
+      { id: 4, title: "Gamepad", price: 50, image: "imag.jpg" },
     ];
   }
 
@@ -40,6 +40,14 @@ class ProductItem {
                <button class="buy-btn">Купить</button>
            </div>`;
   }
+}
+
+class BoxBascet {
+  constructor() {}
+}
+
+class ItemToBascet {
+  constructor() {}
 }
 
 let list = new ProductList();
