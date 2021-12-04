@@ -50,19 +50,33 @@ class BoxBascet {
   productSum() {}
 
   openBascet() {
-    const bascetDiv = document.querySelector('.open');
-    const btnBascet = document.querySelector('.btn-cart');
-    btnBascet.addEventListener('click', () => {
-      bascetDiv.classList.toggle('open');
-    })
-
+    const bascetDiv = document.querySelector(".open");
+    const btnBascet = document.querySelector(".btn-cart");
+    btnBascet.addEventListener("click", () => {
+      bascetDiv.classList.toggle("open");
+    });
   }
 
   render() {}
 }
 
 class ItemToBascet {
-  constructor() {}
+  constructor() {
+    this.klicItem();
+    this.render();
+  }
+
+  klicItem() {
+    const BuyBtn = document.querySelectorAll(".buy-btn");
+    BuyBtn.forEach((i) => {
+      i.addEventListener("click", (item) => {
+        const itemList = 
+      });
+    });
+  }
+
+  render() {}
 }
 let list = new ProductList();
 let basket = new BoxBascet();
+let itemcart = new ItemToBascet();
