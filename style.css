@@ -5,6 +5,7 @@
 
 .header {
   background-color: dimgrey;
+  position: relative;
 }
 
 .btn-cart {
@@ -34,4 +35,16 @@
 
 .price {
   margin-bottom: 20px;
+}
+
+.boxBascet {
+  border: 1px solid black;
+  width: 400px;
+  height: 500px;
+  position: absolute;
+  background-color: gainsboro;
+}
+
+.open {
+  display: none;
 }

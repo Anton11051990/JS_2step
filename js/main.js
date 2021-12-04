@@ -43,11 +43,26 @@ class ProductItem {
 }
 
 class BoxBascet {
-  constructor() {}
+  constructor() {
+    this.bascetGoogs = [];
+    this.openBascet();
+  }
+  productSum() {}
+
+  openBascet() {
+    const bascetDiv = document.querySelector('.open');
+    const btnBascet = document.querySelector('.btn-cart');
+    btnBascet.addEventListener('click', () => {
+      bascetDiv.classList.toggle('open');
+    })
+
+  }
+
+  render() {}
 }
 
 class ItemToBascet {
   constructor() {}
 }
-
 let list = new ProductList();
+let basket = new BoxBascet();
