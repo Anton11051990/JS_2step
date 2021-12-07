@@ -65,6 +65,8 @@ class BoxBascet {
   constructor() {
     this.openBascet();
     this.render();
+    this.bascetGoods = [];
+    this.getBascet();
   }
   productSum() {}
 
@@ -75,6 +77,20 @@ class BoxBascet {
     btnBascet.addEventListener("click", () => {
       bascetDiv.classList.toggle("open");
     });
+  }
+  getBascet() {
+    fetch(`${API_URL}getBasket.json`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((request) => {
+        this.bascetGoods = request.contents.map((item) => ({
+          title: item.product_name,
+          pice: item.prise,
+          id: item.id_product,
+        }));
+        this.render();
+      });
   }
   render() {}
 }
