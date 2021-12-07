@@ -63,7 +63,6 @@ class ProductItem {
 
 class BoxBascet {
   constructor() {
-    this.bascetGoogs = [];
     this.openBascet();
     this.render();
   }
@@ -77,17 +76,13 @@ class BoxBascet {
       bascetDiv.classList.toggle("open");
     });
   }
-  render() {
-    const buttons = document.querySelectorAll("buy-btn");
-    buttons.forEach((button) => {});
-  }
+  render() {}
 }
 
-class ItemToBascet {
-  constructor() {}
-
-  _itemProduct() {}
-
+class ItemToBascet extends ProductItem {
+  constructor(product) {
+    super(product);
+  }
   render() {}
 }
 let list = new ProductList();
