@@ -1,6 +1,8 @@
 const API_URL =
   "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/";
 
+const image = "imag.jpg";
+
 class ProductList {
   constructor(container = ".products") {
     this.container = container;
@@ -30,7 +32,7 @@ class ProductList {
   render() {
     const Blok = document.querySelector(this.container);
     for (let product of this.goods) {
-      const item = new ProductItem(product);
+      const item = new ProductItem(product, image);
       Blok.innerHTML += item.render();
     }
   }
@@ -40,7 +42,7 @@ class ProductItem {
   constructor(product) {
     this.title = product.title;
     this.price = product.price;
-    this.image = product.image;
+    this.image = "imag.jpg";
     this.id = product.id;
   }
 
@@ -100,10 +102,11 @@ class BoxBascet {
 }
 
 class ItemToBascet {
-  constructor(title, price, id) {
+  constructor(title, price, id, image) {
     this.title = title;
     this.price = price;
     this.id = id;
+    this.image = "imag.jpg";
   }
   render() {
     return `<div class="product-item">
