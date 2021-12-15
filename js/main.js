@@ -25,13 +25,6 @@ class ProductList {
       .catch((err) => {
         console.log(err.text);
       });
-
-    // this.goods = [
-    //   { id: 1, title: "Notebook", price: 2000, image: "imag.jpg" },
-    //   { id: 2, title: "Mouse", price: 20, image: "imag.jpg" },
-    //   { id: 3, title: "Keyboard", price: 20, image: "imag.jpg" },
-    //   { id: 4, title: "Gamepad", price: 50, image: "imag.jpg" },
-    // ];
   }
 
   render() {
@@ -63,9 +56,10 @@ class ProductItem {
 
 class BoxBascet {
   constructor() {
+    this._bascetGoods = [];
+    this._boxBascet = document.querySelector(".boxBascet");
     this.openBascet();
     this.render();
-    this.bascetGoods = [];
     this.getBascet();
   }
   productSum() {}
@@ -84,22 +78,41 @@ class BoxBascet {
         return response.json();
       })
       .then((request) => {
-        this.bascetGoods = request.contents.map((item) => ({
+        this._bascetGoods = request.contents.map((item) => ({
           title: item.product_name,
-          pice: item.prise,
+          price: item.price,
           id: item.id_product,
         }));
         this.render();
+      })
+      .catch((err) => {
+        console.log(err.text);
       });
   }
-  render() {}
+  render() {
+    let Html = "";
+    this._bascetGoods.forEach((item) => {
+      const cart = new ItemToBascet(item.title, item.id, item.price);
+      Html += cart.render();
+    });
+    this._boxBascet.innerHTML = Html;
+  }
 }
 
-class ItemToBascet extends ProductItem {
-  constructor(product) {
-    super(product);
+class ItemToBascet {
+  constructor(title, price, id) {
+    this.title = title;
+    this.price = price;
+    this.id = id;
   }
-  render() {}
+  render() {
+    return `<div class="product-item">
+    <h3 class="title">${this.title}</h3>
+    <img src="images/${this.image}" alt="">
+    <p class="price">${this.price}</p>
+    <button class="buy-btn">Купить</button>
+</div>`;
+  }
 }
 let list = new ProductList();
 let basket = new BoxBascet();
