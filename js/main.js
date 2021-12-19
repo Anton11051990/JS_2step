@@ -3,15 +3,15 @@ const API_URL =
 const image = "imag.jpg";
 
 class ProductList {
-  constructor(container = ".products") {
-    this.container = container;
+  constructor(basket) {
+    //неправильно работает
     this.goods = [];
-    this._fetchProducts();
+    this._cart = basket; // надо сделать
     this.render();
     this._addToBascet();
   }
 
-  _fetchProducts() {
+  fetchProducts() {
     fetch(`${API_URL}catalogData.json`)
       .then((response) => {
         return response.json();
@@ -29,10 +29,23 @@ class ProductList {
       });
   }
 
-  _addToBascet() {}
+  _addToBascet() {
+    document.querySelector(".products").addEventListener("click", (item) => {
+      if (item.target.classList.contains("buy-btn")) {
+        const id = item.target.getAttribute("data-id");
+        fetch(`${API_URL}addToBasket.json`)
+          .then(() => {
+            this._cart.add(this.goods.find((good) => good.id == id));
+          })
+          .catch((err) => {
+            console.log(err.text);
+          });
+      }
+    });
+  }
 
   render() {
-    const Blok = document.querySelector(this.container);
+    const Blok = document.querySelector(".products");
     for (let product of this.goods) {
       const item = new ProductItem(product, image);
       Blok.innerHTML += item.render();
@@ -63,10 +76,15 @@ class BoxBascet {
     this._bascetGoods = [];
     this._boxBascet = document.querySelector(".boxBascet");
     this.render();
-    this._getBascet();
     this._openBascet();
+    // this.add();
   }
   productSum() {}
+
+  add(good) {
+    this._bascetGoods.push(good);
+    this.render();
+  }
 
   _openBascet() {
     // открыть закрыть карзину
@@ -76,7 +94,7 @@ class BoxBascet {
       bascetDiv.classList.toggle("open");
     });
   }
-  _getBascet() {
+  getBascet() {
     fetch(`${API_URL}getBasket.json`)
       .then((response) => {
         return response.json();
@@ -118,14 +136,8 @@ class ItemToBascet {
 </div>`;
   }
 }
-
-document.querySelector(".products").addEventListener("click", (item) => {
-  if (item.target.classList.contains("buy-btn")) {
-    const id = item.target.getAttribute("data-id");
-    console.log(id);
-  }
-});
-
-let list = new ProductList();
 let basket = new BoxBascet();
-let itemcart = new ItemToBascet();
+let itemcart = new ItemToBascet(); //менял местами
+let list = new ProductList(basket); // параметр не верный
+list.fetchProducts();
+basket.getBascet();
