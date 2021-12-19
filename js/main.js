@@ -1,6 +1,5 @@
 const API_URL =
   "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/";
-
 const image = "imag.jpg";
 
 class ProductList {
@@ -9,6 +8,7 @@ class ProductList {
     this.goods = [];
     this._fetchProducts();
     this.render();
+    this._addToBascet();
   }
 
   _fetchProducts() {
@@ -28,6 +28,8 @@ class ProductList {
         console.log(err.text);
       });
   }
+
+  _addToBascet() {}
 
   render() {
     const Blok = document.querySelector(this.container);
@@ -51,7 +53,7 @@ class ProductItem {
                <h3 class="title">${this.title}</h3>
                <img src="images/${this.image}" alt="">
                <p class="price">${this.price}</p>
-               <button class="buy-btn">Купить</button>
+               <button data-id="${this.id}" class="buy-btn">Купить</button>
            </div>`;
   }
 }
@@ -60,13 +62,13 @@ class BoxBascet {
   constructor() {
     this._bascetGoods = [];
     this._boxBascet = document.querySelector(".boxBascet");
-    this.openBascet();
     this.render();
-    this.getBascet();
+    this._getBascet();
+    this._openBascet();
   }
   productSum() {}
 
-  openBascet() {
+  _openBascet() {
     // открыть закрыть карзину
     const bascetDiv = document.querySelector(".open");
     const btnBascet = document.querySelector(".btn-cart");
@@ -74,7 +76,7 @@ class BoxBascet {
       bascetDiv.classList.toggle("open");
     });
   }
-  getBascet() {
+  _getBascet() {
     fetch(`${API_URL}getBasket.json`)
       .then((response) => {
         return response.json();
@@ -102,21 +104,28 @@ class BoxBascet {
 }
 
 class ItemToBascet {
-  constructor(title, price, id, image) {
+  constructor(title, price, id) {
     this.title = title;
     this.price = price;
     this.id = id;
     this.image = "imag.jpg";
   }
   render() {
-    return `<div class="product-item">
+    return `<div class="product">
     <h3 class="title">${this.title}</h3>
     <img src="images/${this.image}" alt="">
     <p class="price">${this.price}</p>
-    <button class="buy-btn">Купить</button>
 </div>`;
   }
 }
+
+document.querySelector(".products").addEventListener("click", (item) => {
+  if (item.target.classList.contains("buy-btn")) {
+    const id = item.target.getAttribute("data-id");
+    console.log(id);
+  }
+});
+
 let list = new ProductList();
 let basket = new BoxBascet();
 let itemcart = new ItemToBascet();
